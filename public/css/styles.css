@@ -259,7 +259,9 @@ img {
 
 .hero-media {
   width: 600px;
-  flex-shrink: 0;
+  max-width: 100%;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .hero-image {
@@ -747,6 +749,43 @@ img {
 }
 
 @media (max-width: 768px) {
+  /* Stack hero content */
+.hero-inner {
+  flex-direction: column-reverse;
+  gap: 32px;
+}
+
+.hero-text,
+.hero-media {
+  width: 100%;
+  min-width: 0;
+}
+
+/* Fix navigation */
+.site-header--home .container {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.site-header--home nav {
+  width: 100%;
+}
+
+.site-header--home .nav-links {
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.site-header--home .nav-links a {
+  padding: 8px;
+}
+
+/* Feature cards */
+.playbook-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+  
   h1 {
     font-size: 40px;
   }
@@ -784,6 +823,37 @@ img {
 }
 
 @media (max-width: 480px) {
+  /* Stack all feature cards */
+.playbook-grid {
+  grid-template-columns: 1fr;
+}
+
+/* Keep hero image within screen */
+.hero-media {
+  width: 100%;
+}
+
+.hero-image {
+  width: 100%;
+  height: auto;
+}
+
+/* Adjust navigation for phones */
+.site-header--home .nav-links {
+  gap: 8px;
+}
+
+.site-header--home .nav-links a {
+  padding: 6px;
+  font-size: 14px;
+}
+
+/* Reduce container padding */
+.container {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+  
   h1 {
     font-size: 34px;
   }
