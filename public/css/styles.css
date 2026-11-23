@@ -1,5 +1,23 @@
 /* Calico Media marketing site */
 
+/* Self-hosted fonts */
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/inter-v20-latin-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Inter';
+  src: url('../fonts/inter-v20-latin-700.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --ink: #1f1a17;
   --ink-soft: #5b524c;
@@ -408,7 +426,7 @@ img {
 
 .playbook-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 28px;
 }
 
@@ -782,9 +800,6 @@ img {
 }
 
 /* Feature cards */
-.playbook-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-}
   
   h1 {
     font-size: 40px;
@@ -821,12 +836,7 @@ img {
     grid-template-columns: 1fr 1fr;
   }
 }
-
 @media (max-width: 480px) {
-  /* Stack all feature cards */
-.playbook-grid {
-  grid-template-columns: 1fr;
-}
 
 /* Keep hero image within screen */
 .hero-media {
