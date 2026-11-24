@@ -1,21 +1,46 @@
-const path = require('path');
-const express = require('express');
-const { sendToSupport } = require('./support');
+const path = require("path");
+const express = require("express");
+const { sendToSupport } = require("./support");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.join(__dirname, '..', 'public'), { extensions: ['html'] }));
+app.use(
+  express.static(path.join(__dirname, "..", "public"), {
+    extensions: ["html"],
+  }),
+);
 
-app.post('/contact', (req, res) => {
-  const name = (req.body.name || '').trim();
-  const email = (req.body.email || '').trim();
-  const message = (req.body.message || '').trim();
+app.post("/contact", (req, res) => {
+  // Honeypot spam check
+  const website = req.body.website ?? "";
+
+  if (website !== "") {
+    return res.json({ ok: true });
+  }
+  // Timing spam check
+  const formLoadedAt = Number(req.body.formLoadedAt);
+  const elapsedTime = Date.now() - formLoadedAt;
+  if (
+    !Number.isFinite(formLoadedAt) ||
+    formLoadedAt <= 0 ||
+    elapsedTime < 3000
+  ) {
+    return res.json({ ok: true });
+  }
+  const name = (req.body.name || "").trim();
+  const email = (req.body.email || "").trim();
+  const message = (req.body.message || "").trim();
 
   if (!name || !email || !message) {
-    return res.status(400).json({ ok: false, error: 'Please fill in your name, email and message.' });
+    return res
+      .status(400)
+      .json({
+        ok: false,
+        error: "Please fill in your name, email and message.",
+      });
   }
 
   sendToSupport({ name, email, message });
