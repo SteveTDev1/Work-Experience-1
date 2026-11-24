@@ -649,6 +649,10 @@ img {
 
 /* Contact */
 
+.honeypot {
+  display: none;
+}
+
 .contact-layout {
   display: grid;
   grid-template-columns: 3fr 2fr;
